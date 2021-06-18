@@ -9,7 +9,9 @@ router.get('/', async(req,res)=>{
     res.send(stream)
 })
 router.get('/:id', async(req,res)=>{
-    const stream =await Stream.findById(req.param.id)
+    console.log(req.params.id)
+    const stream =await Stream.findById(req.params.id)
+         console.log(stream)
     res.send(stream)
 })
 router.post('/', async(req,res)=>{
@@ -45,7 +47,7 @@ res.status(400).send('this stream not found')
 
 
 })
-router.put('/:id', async(req,res) =>{
+router.patch('/:id', async(req,res) =>{
     console.log(req.params.id)
     const {error}= Streamvalidate(req.body);
     if(error){
