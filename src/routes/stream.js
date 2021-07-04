@@ -11,7 +11,7 @@ router.get('/', async(req,res)=>{
 router.get('/:id', async(req,res)=>{
     console.log(req.params.id)
     const stream =await Stream.findById(req.params.id)
-         console.log(stream)
+         
     res.send(stream)
 })
 router.post('/', async(req,res)=>{
@@ -21,10 +21,10 @@ router.post('/', async(req,res)=>{
  
    if(error){
        
-      console.log(error.details[0].message)
-       res.status(400).send("you should sign in before create stream")
+    
+       res.status(400).send(`${error.details[0].mesages}`)
    }else{
-    console.log(typeof(req.body.userId))
+  
     const stream=  new Stream({title:req.body.title,description:req.body.description,userId:req.body.userId});
     const result=await stream.save();
     res.send(result)
@@ -48,7 +48,7 @@ res.status(400).send('this stream not found')
 
 })
 router.patch('/:id', async(req,res) =>{
-    console.log(req.params.id)
+   
     const {error}= Streamvalidate(req.body);
     if(error){
         res.status(400).send(error.details[0].message)

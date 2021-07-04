@@ -1,8 +1,12 @@
+
+require('express-async-errors');
 const express=require('express');
 const app=express();
 const startDebug=require('debug')('app:startDebug')
 const router=require('./src/routes/stream');
 var cors = require('cors')
+const error=require('./midelware/error')
+
 
 
 const helmet=require('helmet')
@@ -23,6 +27,8 @@ app.use(cors({
   }))
 
 app.use('/stream',router)
+app.use(error)
+
 
  const port=process.env.PORT||4000
  app.listen(port,( )=>{ console.log(`listen on ${port}`)})
